@@ -139,6 +139,8 @@ namespace Jackett.Server.Services
 
                 logger.Info($"Using proxy: {config.ProxyType}");
 
+                logger.Info("Using CloudProxy: " + (string.IsNullOrEmpty(config.CloudProxyUrl) ? "No" : config.CloudProxyUrl));
+
                 var monotype = Type.GetType("Mono.Runtime");
                 if (monotype != null && !DotNetCoreUtil.IsRunningOnDotNetCore)
                 {

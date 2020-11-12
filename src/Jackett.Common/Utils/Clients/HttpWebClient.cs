@@ -8,7 +8,7 @@ using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
-using CloudflareSolverRe;
+using CloudProxySharp;
 using Jackett.Common.Helpers;
 using Jackett.Common.Models.Config;
 using Jackett.Common.Services.Interfaces;
@@ -77,9 +77,10 @@ namespace Jackett.Common.Utils.Clients
 
             var userAgent = webRequest.EmulateBrowser.Value ? BrowserUtil.ChromeUserAgent : "Jackett/" + configService.GetVersion();
 
-            using (var clearanceHandlr = new ClearanceHandler(userAgent))
+            using (var clearanceHandlr = new ClearanceHandler(serverConfig.CloudProxyUrl))
             {
-                clearanceHandlr.MaxTries = 10;
+                clearanceHandlr.UserAgent = userAgent;
+                clearanceHandlr.MaxTimeout = 60000;
                 using (var clientHandlr = new HttpClientHandler
                 {
                     CookieContainer = cookies,

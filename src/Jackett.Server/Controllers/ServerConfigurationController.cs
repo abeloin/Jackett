@@ -102,6 +102,13 @@ namespace Jackett.Server.Controllers
             serverConfig.RuntimeSettings.BasePath = serverService.BasePath();
             configService.SaveConfig(serverConfig);
 
+            if(config.cloudproxyurl != serverConfig.CloudProxyUrl)
+            {
+                serverConfig.CloudProxyUrl = config.cloudproxyurl;
+                configService.SaveConfig(serverConfig);
+                webHostRestartNeeded = true;
+            }
+
             if (omdbApiKey != serverConfig.OmdbApiKey || omdbApiUrl != serverConfig.OmdbApiUrl)
             {
                 serverConfig.OmdbApiKey = omdbApiKey;
