@@ -704,6 +704,32 @@ location /jackett {
 This feature is used as a fallback (when using the aggregate Indexer) to get the movie/series title if only the IMDB ID is provided in the request.
 To use it, please just request a free API key on [OMDb](http://www.omdbapi.com/apikey.aspx) (1,000 daily requests limit) and paste the key in Jackett
 
+## Configuring FlareSolverr integration
+A [FlareSolverr](https://github.com/ngosang/FlareSolverr) instance is needed for the integration to work properly.
+
+If no FlareSolverr API URL is present, Jackett will only detect Cloudflare protection and not solve them.
+
+Pre-built [FlareSolverr](https://github.com/ngosang/FlareSolverr) docker image are available on the following website(x86-64, arm32, arm64):
+* TBD
+<!-- * https://hub.docker.com/r/joesmith/flaresolverr -->
+<!-- * https://github.com/users/ngosang/packages/container/package/flaresolverr -->
+
+[FlareSolverr](https://github.com/ngosang/FlareSolverr) default port is 8191. (There's no need to add the /v1 at the end.)
+
+**URL example:**
+* [FlareSolverr](https://github.com/ngosang/FlareSolverr) is installed on the same machine as Jackett
+  * http://127.0.0.1:8191
+* [FlareSolverr](https://github.com/ngosang/FlareSolverr) is installed on the same machine as Jackett via docker compose(FlareSolverr service name is flaresolverr)
+  * http://flaresolverr:8191
+
+**FlareSolverr integration limitation:**
+
+* Jackett and FlareSolverr must have the same external IP address.
+* Jackett and FlareSolverr must either use IPv4 or IPv6 not both. For example, Jackett(not a docker image) and FlareSolverr(is a docker image), indexer is available on both IPv4 and IPv6 and you have IPv4 and IPv6 addresses. Then Jackett will query the indexer in IPv6 and FlareSolverr in IPv4 resulting in an invalid cookies. The reverse is also possible.
+* May not work properly with hcaptcha page.
+
+For more information about FlareSolverr, please visit: https://github.com/ngosang/FlareSolverr
+
 ## Command line switches
 
   You can pass various options when running via the command line:
