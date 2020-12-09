@@ -32,8 +32,7 @@ namespace Jackett.Common.Indexers
 
         private ConfigurationData ConfigData => configData;
 
-        public InternetArchive(IIndexerConfigurationService configService, WebClient wc, Logger l, IProtectionService ps,
-            ICacheService cs)
+        public InternetArchive(IIndexerConfigurationService configService, WebClient wc, Logger l, IProtectionService ps)
             : base(id: "internetarchive",
                    name: "Internet Archive",
                    description: "Internet Archive is a non-profit digital library offering free universal access to books, movies & music, as well as 406 billion archived web pages",
@@ -61,7 +60,6 @@ namespace Jackett.Common.Indexers
                    client: wc,
                    logger: l,
                    p: ps,
-                   cacheService: cs,
                    configData: new ConfigurationData())
         {
             Encoding = Encoding.UTF8;

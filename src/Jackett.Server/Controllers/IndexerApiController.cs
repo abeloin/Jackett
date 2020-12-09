@@ -85,9 +85,6 @@ namespace Jackett.Server.Controllers
         [TypeFilter(typeof(RequiresIndexer))]
         public async Task<IActionResult> UpdateConfig([FromBody]Common.Models.DTO.ConfigItem[] config)
         {
-            // invalidate cache for this indexer
-            cacheService.CleanIndexerCache(CurrentIndexer);
-
             try
             {
                 // HACK

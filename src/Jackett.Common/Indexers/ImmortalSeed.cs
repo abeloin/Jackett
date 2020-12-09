@@ -33,8 +33,7 @@ namespace Jackett.Common.Indexers
             set => base.configData = value;
         }
 
-        public ImmortalSeed(IIndexerConfigurationService configService, Utils.Clients.WebClient wc, Logger l,
-            IProtectionService ps, ICacheService cs)
+        public ImmortalSeed(IIndexerConfigurationService configService, Utils.Clients.WebClient wc, Logger l, IProtectionService ps)
             : base(id: "immortalseed",
                    name: "ImmortalSeed",
                    description: "ImmortalSeed (iS) is a Private Torrent Tracker for MOVIES / TV / GENERAL",
@@ -62,7 +61,6 @@ namespace Jackett.Common.Indexers
                    client: wc,
                    logger: l,
                    p: ps,
-                   cacheService: cs,
                    configData: new ConfigurationDataBasicLogin())
         {
             Encoding = Encoding.UTF8;

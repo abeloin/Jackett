@@ -26,8 +26,7 @@ namespace Jackett.Common.Indexers
 
         private new ConfigurationData configData => base.configData;
 
-        public ShowRSS(IIndexerConfigurationService configService, WebClient wc, Logger l, IProtectionService ps,
-            ICacheService cs)
+        public ShowRSS(IIndexerConfigurationService configService, WebClient wc, Logger l, IProtectionService ps)
             : base(id: "showrss",
                    name: "ShowRSS",
                    description: "showRSS is a service that allows you to keep track of your favorite TV shows",
@@ -43,7 +42,6 @@ namespace Jackett.Common.Indexers
                    client: wc,
                    logger: l,
                    p: ps,
-                   cacheService: cs,
                    configData: new ConfigurationData())
         {
             Encoding = Encoding.UTF8;

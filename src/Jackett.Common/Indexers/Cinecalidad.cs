@@ -31,8 +31,7 @@ namespace Jackett.Common.Indexers
             "https://www.cinecalidad.eu/"
         };
 
-        public Cinecalidad(IIndexerConfigurationService configService, WebClient wc, Logger l, IProtectionService ps,
-            ICacheService cs)
+        public Cinecalidad(IIndexerConfigurationService configService, WebClient wc, Logger l, IProtectionService ps)
             : base(id: "cinecalidad",
                    name: "Cinecalidad",
                    description: "Películas Full HD en Castellano y Latino Dual.",
@@ -44,7 +43,6 @@ namespace Jackett.Common.Indexers
                    client: wc,
                    logger: l,
                    p: ps,
-                   cacheService: cs,
                    configData: new ConfigurationData())
         {
             Encoding = Encoding.UTF8;

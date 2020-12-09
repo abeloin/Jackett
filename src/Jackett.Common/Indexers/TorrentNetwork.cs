@@ -33,8 +33,7 @@ namespace Jackett.Common.Indexers
             set => base.configData = value;
         }
 
-        public TorrentNetwork(IIndexerConfigurationService configService, WebClient wc, Logger l, IProtectionService ps,
-            ICacheService cs)
+        public TorrentNetwork(IIndexerConfigurationService configService, WebClient wc, Logger l, IProtectionService ps)
             : base(id: "torrentnetwork",
                    name: "Torrent Network",
                    description: "Torrent Network (TN) is a GERMAN Private site for TV / MOVIES / GENERAL",
@@ -62,7 +61,6 @@ namespace Jackett.Common.Indexers
                    client: wc,
                    logger: l,
                    p: ps,
-                   cacheService: cs,
                    configData: new ConfigurationDataBasicLoginWithRSSAndDisplay())
         {
             Encoding = Encoding.UTF8;

@@ -27,8 +27,7 @@ namespace Jackett.Common.Indexers
 
         private new ConfigurationDataCookie configData => (ConfigurationDataCookie)base.configData;
 
-        public PolishTracker(IIndexerConfigurationService configService, WebClient wc, Logger l, IProtectionService ps,
-            ICacheService cs)
+        public PolishTracker(IIndexerConfigurationService configService, WebClient wc, Logger l, IProtectionService ps)
             : base(id: "polishtracker",
                    name: "PolishTracker",
                    description: "Polish Tracker is a POLISH Private site for 0DAY / MOVIES / GENERAL",
@@ -56,7 +55,6 @@ namespace Jackett.Common.Indexers
                    client: wc,
                    logger: l,
                    p: ps,
-                   cacheService: cs,
                    configData: new ConfigurationDataCookie())
         {
             Encoding = Encoding.UTF8;

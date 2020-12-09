@@ -41,8 +41,7 @@ namespace Jackett.Common.Indexers
 
         private ConfigurationDataNorbits ConfigData => (ConfigurationDataNorbits)configData;
 
-        public NorBits(IIndexerConfigurationService configService, WebClient w, Logger l, IProtectionService ps,
-            ICacheService cs)
+        public NorBits(IIndexerConfigurationService configService, WebClient w, Logger l, IProtectionService ps)
             : base(id: "norbits",
                    name: "NorBits",
                    description: "NorBits is a Norwegian Private site for MOVIES / TV / GENERAL",
@@ -70,7 +69,6 @@ namespace Jackett.Common.Indexers
                    client: w,
                    logger: l,
                    p: ps,
-                   cacheService: cs,
                    configData: new ConfigurationDataNorbits())
         {
             Encoding = Encoding.GetEncoding("iso-8859-1");

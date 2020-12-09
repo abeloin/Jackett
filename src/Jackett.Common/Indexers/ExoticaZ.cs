@@ -19,8 +19,7 @@ namespace Jackett.Common.Indexers
             "https://torrents.yourexotic.com/"
         };
 
-        public ExoticaZ(IIndexerConfigurationService configService, WebClient wc, Logger l, IProtectionService ps,
-            ICacheService cs)
+        public ExoticaZ(IIndexerConfigurationService configService, WebClient wc, Logger l, IProtectionService ps)
             : base(id: "exoticaz",
                    name: "ExoticaZ",
                    description: "ExoticaZ (YourExotic) is a Private Torrent Tracker for 3X",
@@ -35,9 +34,7 @@ namespace Jackett.Common.Indexers
                    configService: configService,
                    client: wc,
                    logger: l,
-                   p: ps,
-                   cs: cs
-                   )
+                   p: ps)
         {
             AddCategoryMapping(1, TorznabCatType.XXXx264);
             AddCategoryMapping(2, TorznabCatType.XXXPack);

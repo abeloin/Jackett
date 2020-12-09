@@ -33,8 +33,7 @@ namespace Jackett.Common.Indexers
 
         private ConfigurationDataBasicLogin ConfigData => (ConfigurationDataBasicLogin)configData;
 
-        public MoreThanTV(IIndexerConfigurationService configService, WebClient c, Logger l, IProtectionService ps,
-            ICacheService cs)
+        public MoreThanTV(IIndexerConfigurationService configService, WebClient c, Logger l, IProtectionService ps)
             : base(id: "morethantv",
                    name: "MoreThanTV",
                    description: "Private torrent tracker for TV / MOVIES, and the internal tracker for the release group DRACULA.",
@@ -54,7 +53,6 @@ namespace Jackett.Common.Indexers
                    client: c,
                    logger: l,
                    p: ps,
-                   cacheService: cs,
                    configData: new ConfigurationDataBasicLogin())
         {
             Encoding = Encoding.UTF8;

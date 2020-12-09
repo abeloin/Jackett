@@ -29,8 +29,7 @@ namespace Jackett.Common.Indexers
             set => base.configData = value;
         }
 
-        public SuperBits(IIndexerConfigurationService configService, WebClient w, Logger l, IProtectionService ps,
-            ICacheService cs)
+        public SuperBits(IIndexerConfigurationService configService, WebClient w, Logger l, IProtectionService ps)
             : base(id: "superbits",
                    name: "Superbits",
                    description: "Superbits is a SWEDISH Private Torrent Tracker for MOVIES / TV / GENERAL",
@@ -58,7 +57,6 @@ namespace Jackett.Common.Indexers
                    client: w,
                    logger: l,
                    p: ps,
-                   cacheService: cs,
                    configData: new ConfigurationDataCookie())
         {
             Encoding = Encoding.UTF8;

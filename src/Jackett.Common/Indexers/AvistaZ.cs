@@ -11,8 +11,7 @@ namespace Jackett.Common.Indexers
     [ExcludeFromCodeCoverage]
     public class AvistaZ : AvistazTracker
     {
-        public AvistaZ(IIndexerConfigurationService configService, WebClient wc, Logger l, IProtectionService ps,
-            ICacheService cs)
+        public AvistaZ(IIndexerConfigurationService configService, WebClient wc, Logger l, IProtectionService ps)
             : base(id: "avistaz",
                    name: "AvistaZ",
                    description: "Aka AsiaTorrents",
@@ -31,9 +30,7 @@ namespace Jackett.Common.Indexers
                    configService: configService,
                    client: wc,
                    logger: l,
-                   p: ps,
-                   cs: cs
-                   )
+                   p: ps)
         {
             AddCategoryMapping(1, TorznabCatType.Movies);
             AddCategoryMapping(1, TorznabCatType.MoviesUHD);

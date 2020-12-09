@@ -29,8 +29,7 @@ namespace Jackett.Common.Indexers
             set => base.configData = value;
         }
 
-        public DigitalCore(IIndexerConfigurationService configService, WebClient w, Logger l, IProtectionService ps,
-            ICacheService cs)
+        public DigitalCore(IIndexerConfigurationService configService, WebClient w, Logger l, IProtectionService ps)
             : base(id: "digitalcore",
                    name: "DigitalCore",
                    description: "DigitalCore is a Private Torrent Tracker for MOVIES / TV / GENERAL",
@@ -58,7 +57,6 @@ namespace Jackett.Common.Indexers
                    client: w,
                    logger: l,
                    p: ps,
-                   cacheService: cs,
                    configData: new ConfigurationDataCookie())
         {
             Encoding = Encoding.UTF8;

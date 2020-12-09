@@ -24,8 +24,7 @@ namespace Jackett.Common.Indexers
 
         private new ConfigurationDataBasicLogin configData => (ConfigurationDataBasicLogin)base.configData;
 
-        public TorrentBytes(IIndexerConfigurationService configService, WebClient wc, Logger l, IProtectionService ps,
-            ICacheService cs)
+        public TorrentBytes(IIndexerConfigurationService configService, WebClient wc, Logger l, IProtectionService ps)
             : base(id: "torrentbytes",
                    name: "TorrentBytes",
                    description: "A decade of TorrentBytes",
@@ -49,7 +48,6 @@ namespace Jackett.Common.Indexers
                    client: wc,
                    logger: l,
                    p: ps,
-                   cacheService: cs,
                    configData: new ConfigurationDataBasicLogin("For best results, change the 'Torrents per page' setting to 100 in your profile on the TorrentBytes webpage."))
         {
             Encoding = Encoding.GetEncoding("iso-8859-1");

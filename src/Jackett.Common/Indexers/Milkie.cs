@@ -23,8 +23,7 @@ namespace Jackett.Common.Indexers
 
         private new ConfigurationDataAPIKey configData => (ConfigurationDataAPIKey)base.configData;
 
-        public Milkie(IIndexerConfigurationService configService, WebClient wc, Logger l, IProtectionService ps,
-            ICacheService cs)
+        public Milkie(IIndexerConfigurationService configService, WebClient wc, Logger l, IProtectionService ps)
             : base(id: "milkie",
                    name: "Milkie",
                    description: "Milkie.cc (ME) is private torrent tracker for 0day / general",
@@ -52,7 +51,6 @@ namespace Jackett.Common.Indexers
                    client: wc,
                    logger: l,
                    p: ps,
-                   cacheService: cs,
                    configData: new ConfigurationDataAPIKey())
         {
             Encoding = Encoding.UTF8;

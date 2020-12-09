@@ -25,8 +25,7 @@ namespace Jackett.Common.Indexers
 
         private new ConfigurationDataPasskey configData => (ConfigurationDataPasskey)base.configData;
 
-        public SceneHD(IIndexerConfigurationService configService, WebClient c, Logger l, IProtectionService ps,
-            ICacheService cs)
+        public SceneHD(IIndexerConfigurationService configService, WebClient c, Logger l, IProtectionService ps)
             : base(id: "scenehd",
                    name: "SceneHD",
                    description: "SceneHD is Private site for HD TV / MOVIES",
@@ -50,7 +49,6 @@ namespace Jackett.Common.Indexers
                    client: c,
                    logger: l,
                    p: ps,
-                   cacheService: cs,
                    configData: new ConfigurationDataPasskey("You can find the Passkey if you generate a RSS " +
                                                             "feed link. It's the last parameter in the URL."))
         {

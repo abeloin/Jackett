@@ -21,8 +21,7 @@ namespace Jackett.Test.TestHelpers
                  configService: null,
                  logger: null,
                  configData: new ConfigurationData(),
-                 p: null,
-                 cacheService: null)
+                 p: null)
         {
             Encoding = Encoding.UTF8;
             Language = "en-us";

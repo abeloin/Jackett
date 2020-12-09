@@ -23,8 +23,7 @@ namespace Jackett.Common.Indexers
     [ExcludeFromCodeCoverage]
     public class Anidex : BaseWebIndexer
     {
-        public Anidex(IIndexerConfigurationService configService, Utils.Clients.WebClient wc, Logger l,
-            IProtectionService ps, ICacheService cs)
+        public Anidex(IIndexerConfigurationService configService, Utils.Clients.WebClient wc, Logger l, IProtectionService ps)
             : base(id: "anidex",
                    name: "Anidex",
                    description: "Anidex is a Public torrent tracker and indexer, primarily for English fansub groups of anime",
@@ -40,7 +39,6 @@ namespace Jackett.Common.Indexers
                    client: wc,
                    logger: l,
                    p: ps,
-                   cacheService: cs,
                    configData: new ConfigurationData())
         {
             Encoding = Encoding.UTF8;

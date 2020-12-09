@@ -1,4 +1,3 @@
-
 using System.Collections.Generic;
 
 namespace Jackett.Common.Models
@@ -7,6 +6,7 @@ namespace Jackett.Common.Models
     {
         public string TrackerId { set; get; }
         public string TrackerName { set; get; }
-        public Dictionary<string, TrackerCacheQuery> Queries = new Dictionary<string, TrackerCacheQuery>();
+
+        public List<CachedResult> Results = new List<CachedResult>();
     }
 }

@@ -25,8 +25,7 @@ namespace Jackett.Common.Indexers
 
         private new ConfigurationDataSceneTime configData => (ConfigurationDataSceneTime)base.configData;
 
-        public SceneTime(IIndexerConfigurationService configService, WebClient w, Logger l, IProtectionService ps,
-            ICacheService cs)
+        public SceneTime(IIndexerConfigurationService configService, WebClient w, Logger l, IProtectionService ps)
             : base(id: "scenetime",
                    name: "SceneTime",
                    description: "Always on time",
@@ -54,7 +53,6 @@ namespace Jackett.Common.Indexers
                    client: w,
                    logger: l,
                    p: ps,
-                   cacheService: cs,
                    configData: new ConfigurationDataSceneTime())
         {
             Encoding = Encoding.GetEncoding("iso-8859-1");

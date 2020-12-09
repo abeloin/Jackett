@@ -19,8 +19,7 @@ namespace Jackett.Common.Indexers
     [ExcludeFromCodeCoverage]
     internal class ShizaProject : BaseWebIndexer
     {
-        public ShizaProject(IIndexerConfigurationService configService, WebClient wc, Logger l, IProtectionService ps,
-            ICacheService cs)
+        public ShizaProject(IIndexerConfigurationService configService, WebClient wc, Logger l, IProtectionService ps)
             : base(id: "ShizaProject",
                    name: "ShizaProject",
                    description: "ShizaProject Tracker is a semi-private russian tracker and release group for anime",
@@ -36,7 +35,6 @@ namespace Jackett.Common.Indexers
                    client: wc,
                    logger: l,
                    p: ps,
-                   cacheService: cs,
                    configData: new  ConfigurationDataBasicLoginWithEmail())
         {
             Encoding = Encoding.UTF8;

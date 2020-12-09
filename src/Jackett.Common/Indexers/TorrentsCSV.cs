@@ -22,8 +22,7 @@ namespace Jackett.Common.Indexers
 
         private new ConfigurationData configData => base.configData;
 
-        public TorrentsCSV(IIndexerConfigurationService configService, WebClient wc, Logger l, IProtectionService ps,
-            ICacheService cs)
+        public TorrentsCSV(IIndexerConfigurationService configService, WebClient wc, Logger l, IProtectionService ps)
             : base(id: "torrentscsv",
                    name: "Torrents.csv",
                    description: "Torrents.csv is a self-hostable, open source torrent search engine and database",
@@ -43,7 +42,6 @@ namespace Jackett.Common.Indexers
                    client: wc,
                    logger: l,
                    p: ps,
-                   cacheService: cs,
                    configData: new ConfigurationData())
         {
             Encoding = Encoding.UTF8;

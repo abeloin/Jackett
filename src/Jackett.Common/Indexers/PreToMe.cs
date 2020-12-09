@@ -23,8 +23,7 @@ namespace Jackett.Common.Indexers
         private string SearchUrl => SiteLink + "browse.php";
         private new ConfigurationDataPinNumber configData => (ConfigurationDataPinNumber)base.configData;
 
-        public PreToMe(IIndexerConfigurationService configService, WebClient wc, Logger l, IProtectionService ps,
-            ICacheService cs)
+        public PreToMe(IIndexerConfigurationService configService, WebClient wc, Logger l, IProtectionService ps)
             : base(id: "pretome",
                    name: "PreToMe",
                    description: "BitTorrent site for High Quality, High Definition (HD) movies and TV Shows",
@@ -52,7 +51,6 @@ namespace Jackett.Common.Indexers
                    configService: configService,
                    logger: l,
                    p: ps,
-                   cacheService: cs,
                    configData: new ConfigurationDataPinNumber("For best results, change the 'Torrents per page' setting to 100 in 'Profile => Torrent browse settings'."))
         {
             Encoding = Encoding.GetEncoding("iso-8859-1");

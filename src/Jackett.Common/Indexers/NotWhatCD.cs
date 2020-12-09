@@ -11,8 +11,7 @@ namespace Jackett.Common.Indexers
     [ExcludeFromCodeCoverage]
     public class NotWhatCD : GazelleTracker
     {
-        public NotWhatCD(IIndexerConfigurationService configService, WebClient wc, Logger l, IProtectionService ps,
-            ICacheService cs)
+        public NotWhatCD(IIndexerConfigurationService configService, WebClient wc, Logger l, IProtectionService ps)
             : base(id: "notwhatcd",
                    name: "notwhat.cd",
                    description: "A music tracker",
@@ -40,7 +39,6 @@ namespace Jackett.Common.Indexers
                    client: wc,
                    logger: l,
                    p: ps,
-                   cs: cs,
                    supportsFreeleechTokens: true)
         {
             Language = "en-us";

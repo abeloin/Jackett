@@ -43,8 +43,7 @@ namespace Jackett.Common.Indexers
             "http://www.mejortorrentt.org/"
         };
 
-        public MejorTorrent(IIndexerConfigurationService configService, WebClient w, Logger l, IProtectionService ps,
-            ICacheService cs)
+        public MejorTorrent(IIndexerConfigurationService configService, WebClient w, Logger l, IProtectionService ps)
             : base(id: "mejortorrent",
                    name: "MejorTorrent",
                    description: "MejorTorrent - Hay veces que un torrent viene mejor! :)",
@@ -68,7 +67,6 @@ namespace Jackett.Common.Indexers
                    client: w,
                    logger: l,
                    p: ps,
-                   cacheService: cs,
                    configData: new ConfigurationData())
         {
             Encoding = Encoding.UTF8;

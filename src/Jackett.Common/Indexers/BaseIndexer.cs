@@ -36,7 +36,6 @@ namespace Jackett.Common.Indexers
         protected Logger logger;
         protected IIndexerConfigurationService configurationService;
         protected IProtectionService protectionService;
-        protected ICacheService cacheService;
 
         protected ConfigurationData configData;
 
@@ -63,12 +62,11 @@ namespace Jackett.Common.Indexers
         // standard constructor used by most indexers
         public BaseIndexer(string link, string id, string name, string description,
                            IIndexerConfigurationService configService, Logger logger, ConfigurationData configData,
-                           IProtectionService p, ICacheService cs)
+                           IProtectionService p)
         {
             this.logger = logger;
             configurationService = configService;
             protectionService = p;
-            cacheService = cs;
 
             if (!link.EndsWith("/", StringComparison.Ordinal))
                 throw new Exception("Site link must end with a slash.");
@@ -380,19 +378,14 @@ namespace Jackett.Common.Indexers
         public virtual async Task<IndexerResult> ResultsForQuery(TorznabQuery query, bool isMetaIndexer)
         {
             if (!CanHandleQuery(query) || !CanHandleCategories(query, isMetaIndexer))
-                return new IndexerResult(this, new ReleaseInfo[0], false);
-
-            var cachedReleases = cacheService.Search(this, query);
-            if (cachedReleases != null)
-                return new IndexerResult(this, cachedReleases, true);
+                return new IndexerResult(this, new ReleaseInfo[0]);
 
             try
             {
                 var results = await PerformQuery(query);
                 results = FilterResults(query, results);
                 results = FixResults(query, results);
-                cacheService.CacheResults(this, query, results.ToList());
-                return new IndexerResult(this, results, false);
+                return new IndexerResult(this, results);
             }
             catch (Exception ex)
             {
@@ -407,9 +400,9 @@ namespace Jackett.Common.Indexers
     {
         protected BaseWebIndexer(string link, string id, string name, string description,
                                  IIndexerConfigurationService configService, WebClient client, Logger logger,
-                                 ConfigurationData configData, IProtectionService p, ICacheService cacheService,
-                                 TorznabCapabilities caps, string downloadBase = null)
-            : base(link, id, name, description, configService, logger, configData, p, cacheService)
+                                 ConfigurationData configData, IProtectionService p, TorznabCapabilities caps,
+                                 string downloadBase = null)
+            : base(link, id, name, description, configService, logger, configData, p)
         {
             webclient = client;
             downloadUrlBase = downloadBase;
@@ -417,9 +410,8 @@ namespace Jackett.Common.Indexers
         }
 
         // minimal constructor used by e.g. cardigann generic indexer
-        protected BaseWebIndexer(IIndexerConfigurationService configService, WebClient client, Logger logger,
-            IProtectionService p, ICacheService cacheService)
-            : base("/", "", "", "", configService, logger, null, p, cacheService) => webclient = client;
+        protected BaseWebIndexer(IIndexerConfigurationService configService, WebClient client, Logger logger, IProtectionService p)
+            : base("/", "", "", "", configService, logger, null, p) => webclient = client;
 
         public virtual async Task<byte[]> Download(Uri link)
         {
@@ -666,6 +658,7 @@ namespace Jackett.Common.Indexers
         {
             var result = await base.ResultsForQuery(query, isMetaIndexer);
             result.Releases = CleanLinks(result.Releases);
+
             return result;
         }
 
@@ -703,9 +696,9 @@ namespace Jackett.Common.Indexers
     {
         protected BaseCachingWebIndexer(string link,string id, string name, string description,
                                         IIndexerConfigurationService configService, WebClient client, Logger logger,
-                                        ConfigurationData configData, IProtectionService p, ICacheService cacheService,
-                                        TorznabCapabilities caps = null, string downloadBase = null)
-            : base(link, id, name, description, configService, client, logger, configData, p, cacheService, caps, downloadBase)
+                                        ConfigurationData configData, IProtectionService p, TorznabCapabilities caps = null,
+                                        string downloadBase = null)
+            : base(link, id, name, description, configService, client, logger, configData, p, caps, downloadBase)
         {
         }
 
@@ -717,7 +710,6 @@ namespace Jackett.Common.Indexers
             }
         }
 
-        // TODO: remove this implementation and use gloal cache
         protected static List<CachedQueryResult> cache = new List<CachedQueryResult>();
         protected static readonly TimeSpan cacheTime = new TimeSpan(0, 9, 0);
     }

@@ -34,8 +34,7 @@ namespace Jackett.Common.Indexers
             "https://rutracker.net/"
         };
 
-        public RuTracker(IIndexerConfigurationService configService, WebClient wc, Logger l, IProtectionService ps,
-            ICacheService cs)
+        public RuTracker(IIndexerConfigurationService configService, WebClient wc, Logger l, IProtectionService ps)
             : base(id: "rutracker",
                    name: "RuTracker",
                    description: "RuTracker is a Semi-Private Russian torrent site with a thriving file-sharing community",
@@ -63,7 +62,6 @@ namespace Jackett.Common.Indexers
                    client: wc,
                    logger: l,
                    p: ps,
-                   cacheService: cs,
                    configData: new ConfigurationDataRutracker())
         {
             Encoding = Encoding.GetEncoding("windows-1251");

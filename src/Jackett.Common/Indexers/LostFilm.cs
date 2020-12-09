@@ -93,8 +93,7 @@ namespace Jackett.Common.Indexers
             set => base.configData = value;
         }
 
-        public LostFilm(IIndexerConfigurationService configService, WebClient wc, Logger l, IProtectionService ps,
-            ICacheService cs)
+        public LostFilm(IIndexerConfigurationService configService, WebClient wc, Logger l, IProtectionService ps)
             : base(id: "lostfilm",
                    name: "LostFilm.tv",
                    description: "Unique portal about foreign series",
@@ -113,7 +112,6 @@ namespace Jackett.Common.Indexers
                    client: wc,
                    logger: l,
                    p: ps,
-                   cacheService: cs,
                    configData: new ConfigurationDataCaptchaLogin())
         {
             Encoding = Encoding.UTF8;

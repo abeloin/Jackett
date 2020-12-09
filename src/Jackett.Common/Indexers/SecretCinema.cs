@@ -14,8 +14,7 @@ namespace Jackett.Common.Indexers
     [ExcludeFromCodeCoverage]
     public class SecretCinema : GazelleTracker
     {
-        public SecretCinema(IIndexerConfigurationService configService, WebClient wc, Logger l, IProtectionService ps,
-            ICacheService cs)
+        public SecretCinema(IIndexerConfigurationService configService, WebClient wc, Logger l, IProtectionService ps)
             : base(id: "secretcinema",
                    name: "Secret Cinema",
                    description: "A tracker for rare movies.",
@@ -35,7 +34,6 @@ namespace Jackett.Common.Indexers
                    client: wc,
                    logger: l,
                    p: ps,
-                   cs: cs,
                    supportsFreeleechTokens: false) // ratioless tracker
         {
             Language = "en-us";

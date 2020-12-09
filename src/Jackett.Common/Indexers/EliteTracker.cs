@@ -24,8 +24,7 @@ namespace Jackett.Common.Indexers
         private string BrowseUrl => SiteLink + "browse.php";
         private new ConfigurationDataEliteTracker configData => (ConfigurationDataEliteTracker)base.configData;
 
-        public EliteTracker(IIndexerConfigurationService configService, WebClient webClient, Logger logger,
-            IProtectionService ps, ICacheService cs)
+        public EliteTracker(IIndexerConfigurationService configService, WebClient webClient, Logger logger, IProtectionService protectionService)
             : base(id: "elitetracker",
                    name: "Elite-Tracker",
                    description: "French Torrent Tracker",
@@ -51,8 +50,7 @@ namespace Jackett.Common.Indexers
                    },
                    configService: configService,
                    logger: logger,
-                   p: ps,
-                   cacheService: cs,
+                   p: protectionService,
                    client: webClient,
                    configData: new ConfigurationDataEliteTracker()
                 )

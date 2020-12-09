@@ -30,8 +30,7 @@ namespace Jackett.Common.Indexers
             "https://tehconnection.me/"
         };
 
-        public Anthelion(IIndexerConfigurationService configService, WebClient wc, Logger l, IProtectionService ps,
-            ICacheService cs)
+        public Anthelion(IIndexerConfigurationService configService, WebClient wc, Logger l, IProtectionService ps)
             : base(id: "anthelion",
                    name: "Anthelion", // old name: TehConnection.me
                    description: "A movies tracker",
@@ -50,7 +49,6 @@ namespace Jackett.Common.Indexers
                    client: wc,
                    logger: l,
                    p: ps,
-                   cacheService: cs,
                    configData: new ConfigurationDataBasicLogin())
         {
             Encoding = Encoding.UTF8;

@@ -27,8 +27,7 @@ namespace Jackett.Common.Indexers
         private static readonly Regex SizeInfoQueryRegex = new Regex(@"Размер:(.*)\n", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         private static readonly Regex ReleaseDateInfoQueryRegex = new Regex(@"Добавлен:(.*)\n", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
-        public Animedia(IIndexerConfigurationService configService, WebClient wc, Logger l, IProtectionService ps,
-            ICacheService cs)
+        public Animedia(IIndexerConfigurationService configService, WebClient wc, Logger l, IProtectionService ps)
             : base(id: "Animedia",
                    name: "Animedia",
                    description: "Animedia is a public russian tracker and release group for anime.",
@@ -44,7 +43,6 @@ namespace Jackett.Common.Indexers
                    client: wc,
                    logger: l,
                    p: ps,
-                   cacheService: cs,
                    configData: new ConfigurationData())
         {
             Encoding = Encoding.UTF8;

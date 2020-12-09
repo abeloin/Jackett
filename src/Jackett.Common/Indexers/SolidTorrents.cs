@@ -35,8 +35,7 @@ namespace Jackett.Common.Indexers
             set => configData = value;
         }
 
-        public SolidTorrents(IIndexerConfigurationService configService, WebClient wc, Logger l, IProtectionService ps,
-            ICacheService cs)
+        public SolidTorrents(IIndexerConfigurationService configService, WebClient wc, Logger l, IProtectionService ps)
             : base(id: "solidtorrents",
                    name: "Solid Torrents",
                    description: "Solid Torrents is a Public torrent meta-search engine",
@@ -64,7 +63,6 @@ namespace Jackett.Common.Indexers
                    client: wc,
                    logger: l,
                    p: ps,
-                   cacheService: cs,
                    configData: new ConfigurationData())
         {
             Encoding = Encoding.UTF8;

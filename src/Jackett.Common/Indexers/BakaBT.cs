@@ -35,8 +35,7 @@ namespace Jackett.Common.Indexers
             set => base.configData = value;
         }
 
-        public BakaBT(IIndexerConfigurationService configService, Utils.Clients.WebClient wc, Logger l,
-            IProtectionService ps, ICacheService cs)
+        public BakaBT(IIndexerConfigurationService configService, Utils.Clients.WebClient wc, Logger l, IProtectionService ps)
             : base(id: "bakabt",
                    name: "BakaBT",
                    description: "Anime Comunity",
@@ -60,7 +59,6 @@ namespace Jackett.Common.Indexers
                    client: wc,
                    logger: l,
                    p: ps,
-                   cacheService: cs,
                    configData: new ConfigurationDataBakaBT("To prevent 0-results-error, Enable the " +
                                                                "Show-Adult-Content option in your BakaBT account Settings."))
         {

@@ -271,6 +271,7 @@ namespace Jackett.Server.Controllers
             {
                 var searchResults = t.Result.Releases;
                 var indexer = t.Result.Indexer;
+                cacheService.CacheRssResults(indexer, searchResults);
 
                 return searchResults.Select(result =>
                 {
@@ -278,20 +279,14 @@ namespace Jackett.Server.Controllers
                     item.Tracker = indexer.DisplayName;
                     item.TrackerId = indexer.Id;
                     item.Peers = item.Peers - item.Seeders; // Use peers as leechers
+
                     return item;
                 });
             }).OrderByDescending(d => d.PublishDate).ToList();
 
             ConfigureCacheResults(manualResult.Results);
 
-            // Log info
-            var indexersName = string.Join(", ", manualResult.Indexers.Select(i => i.ID));
-            var cacheStr = tasks.Where(t => t.Status == TaskStatus.RanToCompletion).Any(t => t.Result.IsFromCache) ? " (from cache)" : "";
-            if (string.IsNullOrWhiteSpace(CurrentQuery.SanitizedSearchTerm))
-                logger.Info($"Manual search in {indexersName} => Found {manualResult.Results.Count()} releases{cacheStr}");
-            else
-                logger.Info($"Manual search in {indexersName} for {CurrentQuery.GetQueryString()} => Found {manualResult.Results.Count()} releases{cacheStr}");
-
+            logger.Info(string.Format("Manual search for \"{0}\" on {1} with {2} results.", CurrentQuery.SanitizedSearchTerm, string.Join(", ", manualResult.Indexers.Select(i => i.ID)), manualResult.Results.Count()));
             return Json(manualResult);
         }
 
@@ -391,12 +386,33 @@ namespace Jackett.Server.Controllers
             {
                 var result = await CurrentIndexer.ResultsForQuery(CurrentQuery);
 
+                // Some trackers do not support multiple category filtering so filter the releases that match manually.
+                int? newItemCount = null;
+
+                // Cache non query results
+                if (string.IsNullOrEmpty(CurrentQuery.SanitizedSearchTerm))
+                {
+                    newItemCount = cacheService.GetNewItemCount(CurrentIndexer, result.Releases);
+                    cacheService.CacheRssResults(CurrentIndexer, result.Releases);
+                }
+
                 // Log info
-                var cacheStr = result.IsFromCache ? " (from cache)" : "";
-                if (string.IsNullOrWhiteSpace(CurrentQuery.SanitizedSearchTerm))
-                    logger.Info($"Torznab search in {CurrentIndexer.DisplayName} => Found {result.Releases.Count()} releases{cacheStr}");
+                var logBuilder = new StringBuilder();
+                if (newItemCount != null)
+                {
+                    logBuilder.AppendFormat("Found {0} ({1} new) releases from {2}", result.Releases.Count(), newItemCount, CurrentIndexer.DisplayName);
+                }
                 else
-                    logger.Info($"Torznab search in {CurrentIndexer.DisplayName} for {CurrentQuery.GetQueryString()} => Found {result.Releases.Count()} releases{cacheStr}");
+                {
+                    logBuilder.AppendFormat("Found {0} releases from {1}", result.Releases.Count(), CurrentIndexer.DisplayName);
+                }
+
+                if (!string.IsNullOrWhiteSpace(CurrentQuery.SanitizedSearchTerm))
+                {
+                    logBuilder.AppendFormat(" for: {0}", CurrentQuery.GetQueryString());
+                }
+
+                logger.Info(logBuilder.ToString());
 
                 var serverUrl = serverService.GetServerUrl(Request);
                 var resultPage = new ResultPage(new ChannelInfo
@@ -485,12 +501,15 @@ namespace Jackett.Server.Controllers
         {
             var result = await CurrentIndexer.ResultsForQuery(CurrentQuery);
 
+            // Cache non query results
+            if (string.IsNullOrEmpty(CurrentQuery.SanitizedSearchTerm))
+                cacheService.CacheRssResults(CurrentIndexer, result.Releases);
+
             // Log info
-            var cacheStr = result.IsFromCache ? " (from cache)" : "";
             if (string.IsNullOrWhiteSpace(CurrentQuery.SanitizedSearchTerm))
-                logger.Info($"Potato search in {CurrentIndexer.DisplayName} => Found {result.Releases.Count()} releases{cacheStr}");
+                logger.Info($"Found {result.Releases.Count()} torrentpotato releases from {CurrentIndexer.DisplayName}");
             else
-                logger.Info($"Potato search in {CurrentIndexer.DisplayName} for {CurrentQuery.GetQueryString()} => Found {result.Releases.Count()} releases{cacheStr}");
+                logger.Info($"Found {result.Releases.Count()} torrentpotato releases from {CurrentIndexer.DisplayName} for: {CurrentQuery.GetQueryString()}");
 
             var serverUrl = serverService.GetServerUrl(Request);
             var potatoReleases = result.Releases.Where(r => r.Link != null || r.MagnetUri != null).Select(r =>

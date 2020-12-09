@@ -29,8 +29,7 @@ namespace Jackett.Common.Indexers
             set => base.configData = value;
         }
 
-        public NewRealWorld(IIndexerConfigurationService configService, WebClient wc, Logger l, IProtectionService ps,
-            ICacheService cs)
+        public NewRealWorld(IIndexerConfigurationService configService, WebClient wc, Logger l, IProtectionService ps)
             : base(id: "newrealworld",
                    name: "New Real World",
                    description: "A German general tracker.",
@@ -58,7 +57,6 @@ namespace Jackett.Common.Indexers
                    client: wc,
                    logger: l,
                    p: ps,
-                   cacheService: cs,
                    configData: new ConfigurationDataBasicLoginWithRSSAndDisplay())
         {
             Encoding = Encoding.GetEncoding("iso-8859-1");

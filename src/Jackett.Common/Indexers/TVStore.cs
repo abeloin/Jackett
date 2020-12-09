@@ -31,8 +31,7 @@ namespace Jackett.Common.Indexers
         private readonly Regex _seriesInfoSearchRegex = new Regex(
             @"S(?<season>\d{1,3})(?:E(?<episode>\d{1,3}))?$", RegexOptions.IgnoreCase);
 
-        public TVStore(IIndexerConfigurationService configService, WebClient wc, Logger l, IProtectionService ps,
-            ICacheService cs) :
+        public TVStore(IIndexerConfigurationService configService, WebClient wc, Logger l, IProtectionService ps) :
             base(id: "tvstore",
                  name: "TV Store",
                  description: "TV Store is a HUNGARIAN Private Torrent Tracker for TV",
@@ -52,7 +51,6 @@ namespace Jackett.Common.Indexers
                  client: wc,
                  logger: l,
                  p: ps,
-                 cacheService: cs,
                  configData: new ConfigurationDataTVstore())
         {
             Encoding = Encoding.UTF8;

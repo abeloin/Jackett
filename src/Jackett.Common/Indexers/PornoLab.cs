@@ -33,8 +33,7 @@ namespace Jackett.Common.Indexers
             set => base.configData = value;
         }
 
-        public PornoLab(IIndexerConfigurationService configService, WebClient wc, Logger l, IProtectionService ps,
-            ICacheService cs)
+        public PornoLab(IIndexerConfigurationService configService, WebClient wc, Logger l, IProtectionService ps)
             : base(id: "pornolab",
                    name: "PornoLab",
                    description: "PornoLab is a Semi-Private Russian site for Adult content",
@@ -44,7 +43,6 @@ namespace Jackett.Common.Indexers
                    client: wc,
                    logger: l,
                    p: ps,
-                   cacheService: cs,
                    configData: new ConfigurationDataPornolab())
         {
             Encoding = Encoding.GetEncoding("windows-1251");

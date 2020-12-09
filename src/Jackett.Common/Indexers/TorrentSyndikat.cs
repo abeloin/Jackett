@@ -28,8 +28,7 @@ namespace Jackett.Common.Indexers
             set => configData = value;
         }
 
-        public TorrentSyndikat(IIndexerConfigurationService configService, WebClient w, Logger l,
-            IProtectionService ps, ICacheService cs)
+        public TorrentSyndikat(IIndexerConfigurationService configService, WebClient w, Logger l, IProtectionService ps)
             : base(id: "torrentsyndikat",
                    name: "Torrent-Syndikat",
                    description: "A German general tracker",
@@ -57,7 +56,6 @@ namespace Jackett.Common.Indexers
                    client: w,
                    logger: l,
                    p: ps,
-                   cacheService: cs,
                    configData: new ConfigurationDataAPIKey())
         {
             Encoding = Encoding.UTF8;

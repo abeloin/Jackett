@@ -25,8 +25,7 @@ namespace Jackett.Common.Indexers
             set => base.configData = value;
         }
 
-        public HDBitsApi(IIndexerConfigurationService configService, WebClient wc, Logger l, IProtectionService ps,
-            ICacheService cs)
+        public HDBitsApi(IIndexerConfigurationService configService, WebClient wc, Logger l, IProtectionService ps)
             : base(id: "hdbitsapi",
                    name: "HDBits (API)",
                    description: "The HighDefinition Bittorrent Community",
@@ -46,7 +45,6 @@ namespace Jackett.Common.Indexers
                    client: wc,
                    logger: l,
                    p: ps,
-                   cacheService: cs,
                    configData: new ConfigurationDataHDBitsApi())
         {
             Encoding = Encoding.UTF8;

@@ -30,8 +30,7 @@ namespace Jackett.Common.Indexers
             public IEnumerable<TorrentMafyaRowResult> aaData { get; set; }
         }
 
-        public TorrentMafya(IIndexerConfigurationService configService, WebClient wc, Logger l, IProtectionService ps,
-            ICacheService cs)
+        public TorrentMafya(IIndexerConfigurationService configService, WebClient wc, Logger l, IProtectionService ps)
             : base(id: "torrentmafya",
                    name: "TorrentMafya",
                    description: "TorrentMafya is a Turkish general torrent tracker ",
@@ -50,7 +49,6 @@ namespace Jackett.Common.Indexers
                    client: wc,
                    logger: l,
                    p: ps,
-                   cacheService: cs,
                    configData: new ConfigurationData())
         {
             Encoding = Encoding.UTF8;

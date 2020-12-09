@@ -40,8 +40,7 @@ namespace Jackett.Common.Indexers
         public Dictionary<string, string> EmulatedBrowserHeaders { get; } = new Dictionary<string, string>();
         private ConfigurationDataXthor ConfigData => (ConfigurationDataXthor)configData;
 
-        public Xthor(IIndexerConfigurationService configService, Utils.Clients.WebClient w, Logger l,
-            IProtectionService ps, ICacheService cs)
+        public Xthor(IIndexerConfigurationService configService, Utils.Clients.WebClient w, Logger l, IProtectionService ps)
             : base(id: "xthor",
                    name: "Xthor",
                    description: "General French Private Tracker",
@@ -69,7 +68,6 @@ namespace Jackett.Common.Indexers
                    client: w,
                    logger: l,
                    p: ps,
-                   cacheService: cs,
                    downloadBase: "https://xthor.tk/download.php?torrent=",
                    configData: new ConfigurationDataXthor())
         {
