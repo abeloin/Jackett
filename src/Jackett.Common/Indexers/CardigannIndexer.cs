@@ -1737,7 +1737,44 @@ namespace Jackett.Common.Indexers
                     }
                 }
             }
+
+            // Check if we need relogin before downloading
+            // skip magnet link
+            if (link.Scheme == "magnet")
+                return await base.Download(link, method, link.ToString());
+
+            await CheckIfLoginIsNeededAndLoginIfSo();
+
             return await base.Download(link, method, link.ToString());
+        }
+
+        protected async Task CheckIfLoginIsNeededAndLoginIfSo()
+        {
+            var Login = Definition.Login;
+
+            // skip no login or test
+            if (Login == null || Login.Test == null)
+                return;
+
+            var loginTestUrl = resolvePath(Login.Test.Path).ToString();
+            var testresponse = await RequestWithCookiesAsync(loginTestUrl);
+
+            var testResultParser = new HtmlParser();
+            var testResultDocument = testResultParser.ParseDocument(testresponse.ContentString);
+
+            var loginNeeded = CheckIfLoginIsNeeded(testresponse, testResultDocument);
+            if (loginNeeded)
+            {
+                logger.Info(string.Format("2CardigannIndexer ({0}): Relogin required", Id));
+                var LoginResult = await DoLogin();
+                if (!LoginResult)
+                    throw new Exception(string.Format("Relogin failed"));
+                await TestLogin();
+            }
+            else
+            {
+                logger.Info(string.Format("2CardigannIndexer ({0}): No relogin required", Id));
+            }
         }
     }
 }
