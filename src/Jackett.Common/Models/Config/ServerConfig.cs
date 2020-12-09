@@ -13,8 +13,12 @@ namespace Jackett.Common.Models.Config
         public ServerConfig(RuntimeSettings runtimeSettings)
         {
             observers = new List<IObserver<ServerConfig>>();
+            // Default values
             Port = 9117;
-            AllowExternal = System.Environment.OSVersion.Platform == PlatformID.Unix;
+            AllowExternal = Environment.OSVersion.Platform == PlatformID.Unix;
+            CacheEnabled = true;
+            CacheTtl = 600; // 10 minutes
+            CacheMaxResultsPerIndexer = 1000;
             RuntimeSettings = runtimeSettings;
         }
 
@@ -34,7 +38,10 @@ namespace Jackett.Common.Models.Config
         public bool UpdateDisabled { get; set; }
         public bool UpdatePrerelease { get; set; }
         public string BasePathOverride { get; set; }
-        public string CloudProxyUrl { get; set; }
+        public bool CacheEnabled { get; set; }
+        public long CacheTtl { get; set; }
+        public long CacheMaxResultsPerIndexer { get; set; }
+		public string CloudProxyUrl { get; set; }
         public string OmdbApiKey { get; set; }
         public string OmdbApiUrl { get; set; }
 

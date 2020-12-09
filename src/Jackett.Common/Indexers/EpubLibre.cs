@@ -52,7 +52,8 @@ namespace Jackett.Common.Indexers
             "https://epublibre.unblockit.lat/"
         };
 
-        public EpubLibre(IIndexerConfigurationService configService, WebClient wc, Logger l, IProtectionService ps)
+        public EpubLibre(IIndexerConfigurationService configService, WebClient wc, Logger l, IProtectionService ps,
+            ICacheService cs)
             : base(id: "epublibre",
                    name: "EpubLibre",
                    description: "Más libros, Más libres",
@@ -68,6 +69,7 @@ namespace Jackett.Common.Indexers
                    client: wc,
                    logger: l,
                    p: ps,
+                   cacheService: cs,
                    configData: new ConfigurationData())
         {
             Encoding = Encoding.UTF8;

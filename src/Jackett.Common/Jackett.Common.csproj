@@ -27,6 +27,7 @@
     <PackageReference Include="System.ServiceProcess.ServiceController" Version="5.0.0" />
     <PackageReference Include="YamlDotNet" Version="8.1.2" />
     <PackageReference Include="YetAnotherCloudProxySharp" Version="1.0.2" />
+    <PackageReference Include="Jint" Version="2.11.58" />
   </ItemGroup>
 
   <ItemGroup>
