@@ -1765,7 +1765,7 @@ namespace Jackett.Common.Indexers
             var loginNeeded = CheckIfLoginIsNeeded(testresponse, testResultDocument);
             if (loginNeeded)
             {
-                logger.Info(string.Format("2CardigannIndexer ({0}): Relogin required", Id));
+                logger.Debug(string.Format("CardigannIndexer ({0}): Relogin required to download torrent", Id));
                 var LoginResult = await DoLogin();
                 if (!LoginResult)
                     throw new Exception(string.Format("Relogin failed"));
@@ -1773,7 +1773,7 @@ namespace Jackett.Common.Indexers
             }
             else
             {
-                logger.Info(string.Format("2CardigannIndexer ({0}): No relogin required", Id));
+                logger.Debug(string.Format("CardigannIndexer ({0}): No relogin required to download torrent", Id));
             }
         }
     }
