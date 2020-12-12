@@ -423,6 +423,7 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * New Real World [![(invite needed)][inviteneeded]](#)
  * NorBits
  * notwhat.cd
+ * oMg[WtF]trackr
  * OnlineSelfEducation
  * ONLYscene
  * Orpheus
@@ -676,7 +677,7 @@ Jackett is available as a beta package from [SynoCommunity](https://synocommunit
 
 
 ## Running Jackett behind a reverse proxy
-When running jackett behind a reverse proxy make sure that the original hostname of the request is passed to Jackett. If HTTPS is used also set the X-Forwarded-Proto header to "https". Don't forget to adjust the "Base Path Override" Jackett option accordingly.
+When running jackett behind a reverse proxy make sure that the original hostname of the request is passed to Jackett. If HTTPS is used also set the X-Forwarded-Proto header to "https". Don't forget to adjust the "Base path override" Jackett option accordingly.
 
 Example config for apache:
 ```
