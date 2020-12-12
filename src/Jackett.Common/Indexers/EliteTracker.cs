@@ -24,7 +24,8 @@ namespace Jackett.Common.Indexers
         private string BrowseUrl => SiteLink + "browse.php";
         private new ConfigurationDataEliteTracker configData => (ConfigurationDataEliteTracker)base.configData;
 
-        public EliteTracker(IIndexerConfigurationService configService, WebClient webClient, Logger logger, IProtectionService protectionService)
+        public EliteTracker(IIndexerConfigurationService configService, WebClient webClient, Logger logger,
+            IProtectionService ps, ICacheService cs)
             : base(id: "elitetracker",
                    name: "Elite-Tracker",
                    description: "French Torrent Tracker",
@@ -50,7 +51,8 @@ namespace Jackett.Common.Indexers
                    },
                    configService: configService,
                    logger: logger,
-                   p: protectionService,
+                   p: ps,
+                   cacheService: cs,
                    client: webClient,
                    configData: new ConfigurationDataEliteTracker()
                 )
@@ -157,7 +159,7 @@ namespace Jackett.Common.Indexers
 
         public override async Task<IndexerConfigurationStatus> ApplyConfiguration(JToken configJson)
         {
-            configData.LoadValuesFromJson(configJson);
+            LoadValuesFromJson(configJson);
 
             var pairs = new Dictionary<string, string>
             {
