@@ -1,3 +1,6 @@
+# Official version now available
+# [Download here](https://github.com/Jackett/Jackett): https://github.com/Jackett/Jackett
+
 # Not Jackett - CloudProxy
 
 [![GitHub issues](https://img.shields.io/github/issues/abeloin/Jackett.svg?maxAge=60&style=flat-square)](https://github.com/abeloin/Jackett/issues)
